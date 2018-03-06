@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>cosi app</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 <body>
+<script src="jquery.min.js"></script>
+<script>
+$.noConflict();
+jQuery(document).ready(function($) {
+	console.log("we're in jquery");
+	var json_data;
+	$.ajax({
+		type: "GET",
+		url: "sample_output.json",
+		dataType: "json",
+		success: saveJson
+	});
+	function saveJson(json){
+		console.log("in save json");
+		// store the json data
+		json_data = json;
+		listChildCodes(json_data);
+	}
+	function listChildCodes(json){
+		console.log("in list child codes");
+		for (var i in json.ClinicalData.SubjectData) {
+			   for (var j in json.ClinicalData.SubjectData[i]) {
+			     //console.log(json.ClinicalData.SubjectData[i][j]);
+			   }
+			}
+		
+		$.each(json.ClinicalData.SubjectData , function(key, val) { 
+			console.log("key: " + key + " ;value: " + val);
+	//	check_box_id = "input[id=" + val + "]";
+	//	$(check_box_id).attr('checked', true);
+	//	$(check_box_id).change();
+		});
+	}
+	
+})
+</script>
 <p>
 it's a start
 </p>
